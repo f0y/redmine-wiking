@@ -1,11 +1,10 @@
 require 'redmine'
-require 'dispatcher'
 
 require_dependency 'wiking_hook'
 
-RAILS_DEFAULT_LOGGER.info 'Starting WikiNG Plugin for Redmine'
+Rails.logger.info 'Starting WikiNG Plugin for Redmine'
 
-Dispatcher.to_prepare :wiking_plugin do
+Rails.configuration.to_prepare do
     unless Redmine::WikiFormatting::Textile::Formatter.included_modules.include?(WikingFormatterPatch)
         Redmine::WikiFormatting::Textile::Formatter.send(:include, WikingFormatterPatch)
     end
@@ -14,12 +13,13 @@ Dispatcher.to_prepare :wiking_plugin do
     end
 end
 
-Redmine::Plugin.register :wiking_plugin do
+Redmine::Plugin.register :wiking do
     name 'WikiNG'
     author 'Andriy Lesyuk'
     author_url 'http://www.andriylesyuk.com/'
     description 'Wiki Next Generation plugin extends Redmine Wiki syntax.'
     url 'http://projects.andriylesyuk.com/projects/wiking'
+    requires_redmine :version_or_higher => '2.0.0'
     version '0.0.1b'
 end
 

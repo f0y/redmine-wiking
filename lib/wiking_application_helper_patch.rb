@@ -91,7 +91,7 @@ module WikingApplicationHelperPatch
                 end
             end
 
-            text
+            raw(text)
         end
 
         WIKING_LINK_RE = %r{(!)?(\[\[(wikipedia|google|redmine|chiliproject)(?:\[([^\]])\])?>([^\]\n\|]+)(?:\|([^\]\n\|]+))?\]\])}
